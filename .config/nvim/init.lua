@@ -111,15 +111,18 @@ require('lazy').setup({
       },
     },
   },
-  {
-    'rebelot/kanagawa.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'kanagawa'
-    end,
-  },
 
---[[
+
+--[[  {
+   'rebelot/kanagawa.nvim',
+   priority = 1000,
+   config = function()
+     vim.cmd.colorscheme 'kanagawa'
+   end,
+  },
+--]]
+
+
   { -- Theme inspired by Atom
     'navarasu/onedark.nvim',
     priority = 1000,
@@ -127,7 +130,7 @@ require('lazy').setup({
       vim.cmd.colorscheme 'onedark'
     end,
   },
---]]
+
   { -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
@@ -179,6 +182,19 @@ require('lazy').setup({
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
   },
+  {
+  "Pocco81/auto-save.nvim",
+	config = function()
+		 require("auto-save").setup {
+			-- your config goes here
+			-- or just leave it empty :)
+		 }
+	end
+  },
+
+
+
+
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.

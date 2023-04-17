@@ -17,6 +17,9 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+setxkbmap -model pc105 -layout us -variant altgr-intl
+
+
 export LANG=en_US.UTF-8
 
 if [[ -n $SSH_CONNECTION ]]; then
