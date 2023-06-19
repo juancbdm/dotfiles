@@ -64,6 +64,11 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
+  { 'LazyVim/LazyVim', import = 'lazyvim.plugins' },
+  { import = 'lazyvim.plugins.extras.coding.copilot' },
+  { import = 'lazyvim.plugins.extras.formatting.prettier' },
+  { import = 'lazyvim.plugins.extras.lang.json' },
+  { import = 'lazyvim.plugins.extras.vscode' },
   -- NOTE: First, some plugins that don't require any configuration
 
   -- Git related plugins
@@ -84,7 +89,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      -- { 'j-hui/fidget.nvim', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -112,22 +117,12 @@ require('lazy').setup({
     },
   },
 
-
---[[  {
-   'rebelot/kanagawa.nvim',
-   priority = 1000,
-   config = function()
-     vim.cmd.colorscheme 'kanagawa'
-   end,
-  },
---]]
-
-
-  { -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+  {
+    'ellisonleao/gruvbox.nvim',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'onedark'
+      vim.o.background = 'dark' -- or "light" for light mode
+      vim.cmd [[colorscheme gruvbox]]
     end,
   },
 
@@ -144,7 +139,8 @@ require('lazy').setup({
     },
   },
 
-  { -- Add indentation guides even on blank lines
+  {
+    -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
@@ -183,18 +179,14 @@ require('lazy').setup({
     end,
   },
   {
-  "Pocco81/auto-save.nvim",
-	config = function()
-		 require("auto-save").setup {
-			-- your config goes here
-			-- or just leave it empty :)
-		 }
-	end
+    'Pocco81/auto-save.nvim',
+    config = function()
+      require('auto-save').setup {
+        -- your config goes here
+        -- or just leave it empty :)
+      }
+    end,
   },
-
-
-
-
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -312,7 +304,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim' },
+  ensure_installed = { 'go', 'lua', 'typescript', 'help', 'vim' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -363,22 +355,22 @@ require('nvim-treesitter.configs').setup {
       },
     },
     swap = {
-      enable = true,
       swap_next = {
         ['<leader>a'] = '@parameter.inner',
       },
       swap_previous = {
         ['<leader>A'] = '@parameter.inner',
       },
+      enable = true,
     },
   },
 }
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
@@ -431,11 +423,7 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
 
   lua_ls = {
     Lua = {

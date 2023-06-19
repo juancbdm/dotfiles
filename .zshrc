@@ -36,12 +36,16 @@ else
    export EDITOR='vim'
 fi
 
-# Alias
-alias ls="lsd -lah"
+if [ -f $HOME"/.aliases" ]; then
+    . $HOME"/.aliases"
+fi
+
 #dotfiles
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+#alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 # grep output colorful 
-alias grep='grep --color=auto'
-alias docker rmall='docker rm -f $(docker ps -a -q)'
+#alias grep='grep --color=auto'
+#alias l="lsd -lah"
+
 
 source $ZSH/oh-my-zsh.sh
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
